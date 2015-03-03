@@ -1,6 +1,7 @@
 % Solves the thin-film equation
 %           h_t + (h^2 h_xxx)_x = 0
 % with nonzero contact angles and kinematic condition.
+% TEST
 clear all
 
 % * set model & computational paramters
