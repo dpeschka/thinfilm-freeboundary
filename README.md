@@ -25,6 +25,7 @@ Some simple experiments that can be done with the algorithm is
   **Result:** This shows the robustness of the algorithm.
   
 2. Switch on normal gravity: Set c1=100.
+  
   **Result:** The original droplet becomes flat.
   
 3. Switch on tangential gravity:
