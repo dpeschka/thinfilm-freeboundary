@@ -18,6 +18,8 @@ npoint= 100;  % number of vertices
 
 ## Some simple experiments with the algorithm
 
+Each experiment here assumes that you start with the other parameters in the main file *thinfilm.m* being as stated above. **Note:** If one experiences problems with stability, then this is usually due to an (expected) restriction in the time-step size. Solution: Increase nt or decrease T!
+
 1. Change the number of vertices to 
   * a small number, e.g. 10
   * a big number, e.g. 1000. This requires increasing the number of time steps as well
