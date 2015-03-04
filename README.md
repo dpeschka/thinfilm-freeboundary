@@ -16,7 +16,7 @@ nt    = 100;  % number of time steps
 npoint= 100;  % number of vertices
 ```
 
-Some simple experiments that can be done with the algorithm is
+## Some simple experiments with the algorithm
 
 1. Change the number of vertices to 
   * a small number, e.g. 10
