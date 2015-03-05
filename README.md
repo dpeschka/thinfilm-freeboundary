@@ -2,12 +2,12 @@
 MATLAB code for 1D thin film equation with contact lines as discussed in the corresponding paper xxx in *Journal of Computational Physics*.
 
 ## Explanation of the main file *thinfilm.m* ##
-
+#### I. Introduction
 <img src="https://github.com/dpeschka/thinfilm-freeboundary/blob/master/pics/example.png" width="40%">
 
 This example solves the thin-film solution with mobility exponent *n=2* and initial data *h_0(x)=1/2-|x-1/2|* for *0<x<1*. The equilibrium contact angles at the left and right side are both *|h'|=sqrt(2)* as we have *SL=SR=1*. The following parameters can be modified by the user:
 
-#### Parameters
+#### II. Parameters
 
 ```matlab
 L     = 1.0;  % initial domain size (0,L)
@@ -27,7 +27,7 @@ The initial domain is *(0,L)* as set by the parameter $L$ and also incorporated 
 
 The user can change the contact angles at *x_+/-* by setting modification of `SL,SR` so that *|h'(x-)|=sqrt(2SL)* and *|h'(x_+)|=sqrt(2SR)*. The parameter `c1,c2` encode normal and tangential gravity. The number of time-steps is `nt`, so that `dt=T/nt`. The initial spatial resolution is `L/npoint`, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
 
-#### FEM specifics
+#### III. FEM specifics
 
 ```matlab
 % * create element decomposition for FE method
@@ -47,7 +47,7 @@ The next part constructs the standard finite element infrastructure.
 
 and creates the initial data *h0(x)*.
 
-#### Main PDE part
+#### IV. Main PDE part
 
 ```matlab
 for it=1:nt       
