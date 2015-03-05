@@ -64,7 +64,7 @@ Each experiment here assumes that you start with the other parameters in the mai
   Set SL=SR=0 and increase nt=1000.
   
   **Result:** After running the program also check the first derivative of *h* using finite differences via
-  ```
+  ```matlab
   xh = (x(1:end-1)+x(2:end))/2;
   dh = diff(h)./diff(x);
   plot(xh,dh);
