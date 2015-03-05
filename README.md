@@ -20,7 +20,7 @@ nt    = 100;  % number of time steps
 npoint= 100;  % number of vertices
 ```
 
-The initial domain is *(0,L)* as set by the parameter $L$ and also incorporated in the initial data *h0*. One needs to have *h0(0)=h0(L)=0* and *h0(x)>0* for *0<x<L*. The algorithm attempts to solve then thin-film equation for times *0<t<T*, which might mainly due to
+The initial domain is *(0,L)* as set by the parameter *L* and also incorporated in the initial data *h0*. One needs to have *h0(0)=h0(L)=0* and *h0(x)>0* for *0<x<L*. The algorithm attempts to solve then thin-film equation for times *0<t<T*, which might mainly due to
 
   * topological changes (unavoidable),
   * numerical instability (decrease time-step).
