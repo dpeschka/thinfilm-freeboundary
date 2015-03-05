@@ -35,9 +35,8 @@ end
 % generate sparse matrices, e.g. S(ii(k),jj(k))=S_(k)
 S  = sparse(ii(:), jj(:), S_(:)  );
 Sw = sparse(ii(:), jj(:), Sw_(:) );
-Ms = sparse(ii(:), jj(:), Ms_(:) );
+M  = sparse(ii(:), jj(:), Ms_(:) );
 Dx = sparse(ii(:), jj(:), Dx_(:) );
 Z  = sparse(ndof,ndof);
 % build 2x2 block matrices from ndof x ndof matrices
-A = [Ms Sw;-dt*S Ms];
-M = [Ms  Z;Z  Ms];
+A = [M  Sw;-dt*S M];
