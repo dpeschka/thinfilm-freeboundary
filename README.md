@@ -25,7 +25,7 @@ The initial domain is *(0,L)* as set by the parameter *L* and also incorporated 
   * topological changes (unavoidable),
   * numerical instability (decrease time-step).
 
-The user can change the contact angles at *x_+/-* by setting modification of `SL,SR` so that *|h'(x-)|=sqrt(2SL)* and *|h'(x_+)|=sqrt(2SR)*. The parameter `c1,c2` encode normal and tangential gravity. The number of time-steps is `nt`, so that `dt=T/nt`. The initial spatial resolution is `L/npoint`, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
+The user can change the contact angles at *x_+/-* by setting modification of `SL,SR` so that *|h'(x-)|=sqrt(2SL)* and *|h'(x_+)|=sqrt(2SR)*. The parameter `g1,g2` encode normal and tangential gravity. The number of time-steps is `nt`, so that `dt=T/nt`. The initial spatial resolution is `L/npoint`, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
 
 #### III. FEM specifics
 
@@ -92,28 +92,28 @@ Each experiment here assumes that you start with the other parameters in the mai
 **Note:** If one experiences problems with stability, then this is usually due to an (expected) restriction in the time-step size. Solution: Increase nt or decrease T!
 
 1. Change the number of vertices to: 
-  * a small number, e.g. npoint=10,
-  * a big number, e.g. npoint=1000. This requires increasing the number of time steps as well, e.g. nt=1000
+  * a small number, e.g. `npoint=10`,
+  * a big number, e.g. `npoint=1000`. This requires increasing the number of time steps as well, e.g. `nt=1000`.
   
   **Result:** This shows the robustness of the algorithm.
   
-2. Switch on normal gravity: Set c1=100.
+2. Switch on normal gravity: Set `g2=50`.
   
   **Result:** The original droplet becomes flat.
   
 3. Switch on tangential gravity:
-  * first set setting c2=10 and set T=1, nt=1000
-  * drastically increase c2=100 and set T=1, nt=4000
+  * first set setting `g1=10` and set `T=1`, `nt=1000`
+  * drastically increase `g1=100` and set `T=1`, `nt=4000`
   
   **Result:** The first setting produces a symmetric traveling wave h(t,x)=f(x-tv), whereas the second setting produces a very asymmetric traveling wave.
-4. Gradient in surface energy: Set SR=0.1, nt=800, npoint=200
+4. Gradient in surface energy: Set `SR=0.1`, `nt=800`, `npoint=200`.
   
   **Result:** Also generates a traveling wave with contact angle left and right being different. This reflects a gradient in surface energy, by which the droplet starts to move towards the smaller angle.
   
 ## Slightly advanced experiments
 
 1. Modification of parameters and initial data to have *dewetting like* behavior:
-  Set L=50, T=200, nt=500 and after line 25 insert *h(h>1)=1* so that the corresponding lines look like
+  Set `L=50`, `T=200`, `nt=500` and after line 25 insert `h(h>1)=1` so that the corresponding lines look like
   ```matlab
   % * create & remember initial data
   h  = L/2-abs(L/2-x); 
@@ -122,7 +122,7 @@ Each experiment here assumes that you start with the other parameters in the mai
   **Result:** Typical dewetting front with volume collected in a rim with a droplet being the final state. 
   
 2. Modification of parameters for wetting/droplet spreading case with zero contact angle
-  Set SL=SR=0 and increase nt=1000.
+  Set `SL=0`, `SR=0` and increase `nt=1000`.
   
   **Result:** After running the program also check the first derivative of *h* using finite differences via
   ```matlab
