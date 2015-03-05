@@ -3,7 +3,7 @@ MATLAB code for 1D thin film equation with contact lines as discussed in the cor
 
 ## Explanation of the main file *thinfilm.m* ##
 
-<img align="middle" src="https://github.com/dpeschka/thinfilm-freeboundary/blob/master/pics/example.png" width="60%">
+<img align="center" src="https://github.com/dpeschka/thinfilm-freeboundary/blob/master/pics/example.png" width="60%">
 
 This example solves the thin-film solution with mobility exponent *n=2* and initial data *h_0(x)=1/2-|x-1/2|* for *0<x<1*. The equilibrium contact angles at the left and right side are both *|h'|=sqrt(2)* as we have *SL=SR=1*. The following parameters can be modified by the user:
 
