@@ -7,6 +7,8 @@ MATLAB code for 1D thin film equation with contact lines as discussed in the cor
 
 This example solves the thin-film solution with mobility exponent *n=2* and initial data *h_0(x)=1/2-|x-1/2|* for *0<x<1*. The equilibrium contact angles at the left and right side are both *|h'|=sqrt(2)* as we have *SL=SR=1*. The following parameters can be modified by the user:
 
+#### Parameters
+
 ```matlab
 L     = 1.0;  % initial domain size (0,L)
 T     = 0.2;  % final time
@@ -25,6 +27,8 @@ The initial domain is *(0,L)* as set by the parameter $L$ and also incorporated 
 
 The user can change the contact angles at *x_+/-* by setting modification of `SL,SR` so that *|h'(x-)|=sqrt(2SL)* and *|h'(x_+)|=sqrt(2SR)*. The parameter `c1,c2` encode normal and tangential gravity. The number of time-steps is `nt`, so that `dt=T/nt`. The initial spatial resolution is `L/npoint`, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
 
+#### FEM specifics
+
 ```matlab
 % * create element decomposition for FE method
 x               =linspace(0,L,npoint)';% vertices
@@ -32,13 +36,44 @@ nelement        =npoint-1;             % no elements
 nd(1:nelement,1)=1:npoint-1;           % id left point of an element
 nd(1:nelement,2)=2:npoint;             % id right point of an element
 local_mass_p1   =[1/3 1/6;1/6 1/3];    % mass matrix for reference [0,1]
+
+% * create & remember initial data
+h  = L/2-abs(L/2-x); 
 ```
 The next part constructs the standard finite element infrastructure.
   * decomposition of interval (0,L) into `nelement`intervals using `npoint` vertices `x`
   * infrastructure `nd` stores the 2 vertices, attached to an element (easy in 1D since `x` ordererd)
-  * `local_mass_p1` stores the mass matrix `latex M_ij=\int \phi_i(x)\phi_j(x) dx` for phi_1(x)=1-x, phi_2(x)=x for 0<x<1
-  
+  * `local_mass_p1` stores the mass matrix `M_ij=\int \phi_i(x)\phi_j(x) dx` for phi_1(x)=1-x, phi_2(x)=x for 0<x<1
 
+and creates the initial data *h0(x)*.
+
+#### Main PDE part
+
+```matlab
+for it=1:nt       
+    % * construct system matrices
+    build_FE_matrices % script: matrices A,S,Ms,Dx for FEM
+    build_ALE_matrix  % script: matrix for ALE decomposition
+    
+    % * FE problem: build right-hand-side rhs & solve
+    rhs=[zeros(npoint,1);S*h+Ms*(c1*h+c2*x)];
+    rhs(ndof+1)=rhs(ndof+1)+(SL+(dh(  1)^2)/2)/dh(  1);
+    rhs(2*ndof)=rhs(2*ndof)-(SR+(dh(end)^2)/2)/dh(end);
+    hdot = A\rhs; % solve for u=(hdot,pi)^t
+    
+    % * perform ALE decomposition & update solution
+    udec  = P\hdot(1:ndof); % decompose hdot
+    h(2:ndof-1)=h(2:ndof-1)+dt*udec(2:ndof-1);% update h
+    x          =x          +dt*I*udec;        % update x
+    
+    % * plot numerical solution with initial data and 
+    % stationary solution for provided data
+    if mod(it,10)==1
+        plot(x,h,'b-','LineWidth',2);
+        drawnow
+    end
+end
+```
 
 ## Some simple experiments with the algorithm
 
