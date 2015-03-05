@@ -14,8 +14,8 @@ L     = 1.0;  % initial domain size (0,L)
 T     = 0.2;  % final time
 SL    = 1.0;  % negative spreading coefficient at x=x-
 SR    = 1.0;  % negative spreading coefficient at x=x+
-c1    = 0.0;  % normal gravity
-c2    = 0.0;  % tangential gravity
+g1    = 0.0;  % tangential gravity
+g2    = 0.0;  % normal gravity
 nt    = 100;  % number of time steps
 npoint= 100;  % number of vertices
 ```
@@ -51,23 +51,22 @@ and creates the initial data *h0(x)*.
 
 ```matlab
 for it=1:nt       
-    % * construct system matrices
-    build_FE_matrices % script: matrices A,S,Ms,Dx for FEM
-    build_ALE_matrix  % script: matrix for ALE decomposition
+    % construct system matrices
+    build_FE_matrices % script: matrices A,S,M,Dx for FEM
+    build_ALE_matrix  % script: matrices for ALE decomposition
     
-    % * FE problem: build right-hand-side rhs & solve
-    rhs=[zeros(npoint,1);S*h+Ms*(c1*h+c2*x)];
+    % FE problem: build right-hand-side rhs & solve
+    rhs=[zeros(npoint,1);S*h+M*(2*g2*h-g1*x)];
     rhs(ndof+1)=rhs(ndof+1)+(SL+(dh(  1)^2)/2)/dh(  1);
     rhs(2*ndof)=rhs(2*ndof)-(SR+(dh(end)^2)/2)/dh(end);
-    hdot = A\rhs; % solve for u=(hdot,pi)^t
+    u = A\rhs; % solve for u=(hdot,pi)^t
     
-    % * perform ALE decomposition & update solution
-    udec  = P\hdot(1:ndof); % decompose hdot
-    h(2:ndof-1)=h(2:ndof-1)+dt*udec(2:ndof-1);% update h
-    x          =x          +dt*I*udec;        % update x
+    % perform ALE decomposition & update solution
+    U = (I-P)\u(1:ndof); % select only u, forget p
+    h = h + dt*I*U;      % update h
+    x = x + dt*X*U;      % update x
     
-    % * plot numerical solution with initial data and 
-    % stationary solution for provided data
+    % plot numerical solution
     if mod(it,10)==1
         plot(x,h,'b-','LineWidth',2);
         drawnow
@@ -75,8 +74,18 @@ for it=1:nt
 end
 ```
 
-Builds the matrices `A,I,P,S,M,C` as in the paper. The construction of the finite element related matrices is performed in `build_FE_matrices.m`, whereas the construction of matrices related to the ALE decomposition part is performed in `build_ALE_matrix.m`.
+Steps in the main part:
 
+  * `build_FE_matrices.m`: Builds the matrices `A,I,X,P,S,M` as in the paper in 
+  Since this is standard finite element calculus, just a remark the the final matrix `A = [M  Sw;-dt*S M];` is    computed as described in the paper.
+  
+  * `build_ALE_matrix.m`: Construction of matrices related to the ALE decomposition (straight-forward)
+  **Remark:** The computation of the space derivative of *h* in the weak form `dh = M\(Dx*h);` uses the matrices `M,Dx` contructed in the finite element part.
+  * Create right-hand-side *b* of the problem *Ax=b* as described with surface tension `S*h` and gravity `M*(2*g2*h-g1*x)`. The modifications at the end-points account for the contact angle due to a nonzero spreading coefficient.
+  * Solve: `u = A\rhs`
+  * ALE decomposition: `U = (I-P)\u(1:ndof);`
+  * Update solution: `h = h + dt*I*U;` and `x = x + dt*X*U;`
+ 
 ## Some simple experiments with the algorithm
 
 Each experiment here assumes that you start with the other parameters in the main file *thinfilm.m* being as stated above. The intent of these examples is to show the versatility of the method and give some more intuition for the physics/mathematics of thin-film contact line motion.
