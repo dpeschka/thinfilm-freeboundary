@@ -17,8 +17,10 @@ npoint= 100;  % number of vertices
 ```
 
 The initial domain is *(0,L)* as set by the parameter $L$ and also incorporated in the initial data *h0*. One needs to have *h0(0)=h0(L)=0* and *h0(x)>0* for *0<x<L*. The algorithm attempts to solve then thin-film equation for times *0<t<T*, which might mainly due to
+
   * topological changes (unavoidable),
   * numerical instability (decrease time-step).
+
 The user can change the contact angles at *x_+/-* by setting modification of SL,SR so that *|h'(x_+/-)|=sqrt(2*S_R/L)*. The parameter c1,c2 encode normal and tangential gravity. The number of time-steps is nt, so that dt=T/nt. The initial spatial resolution is L/npoint, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
 
 ## Some simple experiments with the algorithm
