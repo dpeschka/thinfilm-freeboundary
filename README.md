@@ -30,8 +30,8 @@ The user can change the contact angles at *x_+/-* by setting modification of SL,
 Each experiment here assumes that you start with the other parameters in the main file *thinfilm.m* being as stated above. The intent of these examples is to show the versatility of the method and give some more intuition for the physics/mathematics of thin-film contact line motion.
 **Note:** If one experiences problems with stability, then this is usually due to an (expected) restriction in the time-step size. Solution: Increase nt or decrease T!
 
-1. Change the number of vertices to 
-  * a small number, e.g. npoint=10
+1. Change the number of vertices to: 
+  * a small number, e.g. npoint=10,
   * a big number, e.g. npoint=1000. This requires increasing the number of time steps as well, e.g. nt=1000
   
   **Result:** This shows the robustness of the algorithm.
