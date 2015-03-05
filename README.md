@@ -23,7 +23,7 @@ The initial domain is *(0,L)* as set by the parameter $L$ and also incorporated 
   * topological changes (unavoidable),
   * numerical instability (decrease time-step).
 
-The user can change the contact angles at *x_+/-* by setting modification of SL,SR so that *|h'(x_+/-)|=sqrt(2S_R/L)*. The parameter c1,c2 encode normal and tangential gravity. The number of time-steps is nt, so that dt=T/nt. The initial spatial resolution is L/npoint, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
+The user can change the contact angles at *x_+/-* by setting modification of `SL,SR` so that *|h'(x-)|=sqrt(2SL)* and *|h'(x_+)|=sqrt(2SR)*. The parameter `c1,c2` encode normal and tangential gravity. The number of time-steps is `nt`, so that `dt=T/nt`. The initial spatial resolution is `L/npoint`, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
 
 ```matlab
 % * create element decomposition for FE method
@@ -34,7 +34,9 @@ nd(1:nelement,2)=2:npoint;             % id right point of an element
 local_mass_p1   =[1/3 1/6;1/6 1/3];    % mass matrix for reference [0,1]
 ```
 The next part constructs the standard finite element infrastructure.
-  * decomposition into `npoint` vertices `x`
+  * decomposition of interval (0,L) into `nelement`intervals using `npoint` vertices `x`
+  * infrastructure `nd` stores the 2 vertices, attached to an element (easy in 1D since `x` ordererd)
+  * `local_mass_p1` stores the mass matrix `latex M_ij=\int \phi_i(x)\phi_j(x) dx` for phi_1(x)=1-x, phi_2(x)=x for 0<x<1
   
 
 
