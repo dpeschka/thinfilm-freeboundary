@@ -75,6 +75,8 @@ for it=1:nt
 end
 ```
 
+Builds the matrices `A,I,P,S,M,C` as in the paper. The construction of the finite element related matrices is performed in `build_FE_matrices.m`, whereas the construction of matrices related to the ALE decomposition part is performed in `build_ALE_matrix.m`.
+
 ## Some simple experiments with the algorithm
 
 Each experiment here assumes that you start with the other parameters in the main file *thinfilm.m* being as stated above. The intent of these examples is to show the versatility of the method and give some more intuition for the physics/mathematics of thin-film contact line motion.
