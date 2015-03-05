@@ -25,6 +25,19 @@ The initial domain is *(0,L)* as set by the parameter $L$ and also incorporated 
 
 The user can change the contact angles at *x_+/-* by setting modification of SL,SR so that *|h'(x_+/-)|=sqrt(2S_R/L)*. The parameter c1,c2 encode normal and tangential gravity. The number of time-steps is nt, so that dt=T/nt. The initial spatial resolution is L/npoint, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
 
+```matlab
+% * create element decomposition for FE method
+x               =linspace(0,L,npoint)';% vertices
+nelement        =npoint-1;             % no elements
+nd(1:nelement,1)=1:npoint-1;           % id left point of an element
+nd(1:nelement,2)=2:npoint;             % id right point of an element
+local_mass_p1   =[1/3 1/6;1/6 1/3];    % mass matrix for reference [0,1]
+```
+The next part constructs the standard finite element infrastructure.
+  * decomposition into `npoint` vertices `x`
+  
+
+
 ## Some simple experiments with the algorithm
 
 Each experiment here assumes that you start with the other parameters in the main file *thinfilm.m* being as stated above. The intent of these examples is to show the versatility of the method and give some more intuition for the physics/mathematics of thin-film contact line motion.
