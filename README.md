@@ -7,7 +7,7 @@ MATLAB code for 1D thin film equation with contact lines as discussed in the cor
 
 This example solves the thin-film solution with mobility exponent *n=2* and initial data *h_0(x)=1/2-|x-1/2|* for *0<x<1*. The equilibrium contact angles at the left and right side are both *|h'|=sqrt(2)* as we have *SL=SR=1*. The following parameters can be modified by the user:
 
-```
+```matlab
 L     = 1.0;  % initial domain size (0,L)
 T     = 0.2;  % final time
 SL    = 1.0;  % negative spreading coefficient at x=x-
@@ -53,7 +53,7 @@ Each experiment here assumes that you start with the other parameters in the mai
 
 1. Modification of parameters and initial data to have *dewetting like* behavior:
   Set L=50, T=200, nt=500 and after line 25 insert *h(h>1)=1* so that the corresponding lines look like
-  ```
+  ```matlab
   % * create & remember initial data
   h  = L/2-abs(L/2-x); 
   h(h>1)=1;
