@@ -1,11 +1,12 @@
 # A MATLAB algorithm for thin-film free boundary problems in one spatial dimension
+
 MATLAB code for 1D thin film equation with contact lines as discussed in the corresponding paper xxx in *Journal of Computational Physics*.
 
 ## Explanation of the main file *thinfilm.m* ##
 #### I. Introduction
 <img src="https://github.com/dpeschka/thinfilm-freeboundary/blob/master/pics/example.png" width="40%">
 
-This example solves the thin-film solution with mobility exponent *n=2* and initial data *h_0(x)=1/2-|x-1/2|* for *0<x<1*. The equilibrium contact angles at the left and right side are both *|h'|=sqrt(2)* as we have *SL=SR=1*. The following parameters can be modified by the user:
+This example solves the thin-film equation with mobility exponent *n=2* and initial data *h0(x)=1/2-|x-1/2|* for *0<x<1*. The equilibrium contact angles at the left and right side are both *|h'|=sqrt(2)* as we have *SL=SR=1*. The following parameters can be modified by the user:
 
 #### II. Parameters
 
@@ -20,14 +21,22 @@ nt    = 100;  % number of time steps
 npoint= 100;  % number of vertices
 ```
 
-The initial domain is *(0,L)* as set by the parameter *L* and also incorporated in the initial data *h0*. One needs to have *h0(0)=h0(L)=0* and *h0(x)>0* for *0<x<L*. The algorithm attempts to solve then thin-film equation for times *0<t<T*, which might mainly due to
+The initial domain is *(0,L)* as set by the parameter `L` and also incorporated in the initial data *h0*. One needs to have *h0(0)=h0(L)=0* and *h0(x)>0* for *0<x<L*. Then, the algorithm attempts to solve then thin-film equation for times *0<t<T*, which might fail due to
 
   * topological changes (unavoidable),
   * numerical instability (decrease time-step).
 
-The user can change the contact angles at *x_+/-* by setting modification of `SL,SR` so that *|h'(x-)|=sqrt(2SL)* and *|h'(x_+)|=sqrt(2SR)*. The parameter `g1,g2` encode normal and tangential gravity. The number of time-steps is `nt`, so that `dt=T/nt`. The initial spatial resolution is `L/npoint`, which, however, will change during the evolution. However, since the deformation is linear the spacing/decomposition will always stay uniform.
+The user can change the contact angles at *x_+/-* by setting the values of `SL,SR` so that *|h'(x-)|=sqrt(2SL)* and *|h'(x_+)|=sqrt(2SR)*. The parameter `g1,g2` encode normal and tangential gravity. The number of time-steps is `nt`, so that `dt=T/nt`. The initial spatial resolution is `L/npoint`, which, however, will change during the evolution. Since the domain deformation is linear, the spacing/decomposition will always stay uniform.
 
 #### III. FEM specifics
+
+This part constructs the standard finite element infrastructure.
+  * decomposition of interval (0,L) into `nelement` intervals using `npoint` vertices `x`
+  * infrastructure `nd` stores the 2 vertices, attached to an element (easy in 1D since `x` ordererd)
+  * `local_mass_p1` stores the mass matrix `M_ij=\int \phi_i(x)\phi_j(x) dx` for phi1(x)=1-x, phi2(x)=x for 0<x<1
+
+and creates the initial data *h0(x)*.
+
 
 ```matlab
 % * create element decomposition for FE method
@@ -40,12 +49,6 @@ local_mass_p1   =[1/3 1/6;1/6 1/3];    % mass matrix for reference [0,1]
 % * create & remember initial data
 h  = L/2-abs(L/2-x); 
 ```
-The next part constructs the standard finite element infrastructure.
-  * decomposition of interval (0,L) into `nelement`intervals using `npoint` vertices `x`
-  * infrastructure `nd` stores the 2 vertices, attached to an element (easy in 1D since `x` ordererd)
-  * `local_mass_p1` stores the mass matrix `M_ij=\int \phi_i(x)\phi_j(x) dx` for phi_1(x)=1-x, phi_2(x)=x for 0<x<1
-
-and creates the initial data *h0(x)*.
 
 #### IV. Main PDE part
 
@@ -88,7 +91,7 @@ Steps in the main part:
  
 ## Some simple experiments with the algorithm
 
-Each experiment here assumes that you start with the other parameters in the main file *thinfilm.m* being as stated above. The intent of these examples is to show the versatility of the method and give some more intuition for the physics/mathematics of thin-film contact line motion.
+Each experiment 1.,2.,3.,4. assumes that one starts with the standard parameters in the main file *thinfilm.m* being as stated above. The intent of these examples is to show the versatility of the method and give some more intuition for the physics/mathematics of thin-film contact line motion.
 **Note:** If one experiences problems with stability, then this is usually due to an (expected) restriction in the time-step size. Solution: Increase nt or decrease T!
 
 1. Change the number of vertices to: 
