@@ -2,6 +2,8 @@
 
 MATLAB code for 1D thin film equation with contact lines as discussed in the corresponding paper xxx in *Journal of Computational Physics*.
 
+*Comment:* Algorithm runs as well with GNU Octave (tested with version 3.8.2).
+
 ## Explanation of the main file *thinfilm.m* ##
 #### I. Introduction
 <img src="https://github.com/dpeschka/thinfilm-freeboundary/blob/master/pics/example.png" width="40%">
