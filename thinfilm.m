@@ -45,8 +45,8 @@ for it=1:nt
     
     % FE problem: build right-hand-side rhs & solve
     rhs=[zeros(npoint,1);S*h+M*(2*g2*h-g1*x)];
-    rhs(ndof+1)=rhs(ndof+1)+(SL+(dh(  1)^2)/2)/dh(  1);
-    rhs(2*ndof)=rhs(2*ndof)-(SR+(dh(end)^2)/2)/dh(end);
+    rhs(ndof+1)=rhs(ndof+1)+(SL+(dh(  1)^2)/2)/abs(dh(  1));
+    rhs(2*ndof)=rhs(2*ndof)+(SR+(dh(end)^2)/2)/abs(dh(end));
     u = A\rhs; % solve for u=(hdot,pi)^t
     
     % perform ALE decomposition & update solution
