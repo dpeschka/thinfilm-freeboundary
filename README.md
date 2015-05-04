@@ -1,6 +1,6 @@
 # A MATLAB algorithm for thin-film free boundary problems in one spatial dimension
 
-MATLAB code for 1D thin film equation with contact lines as discussed in the corresponding paper xxx in *Journal of Computational Physics*.
+MATLAB code for 1D thin film equation with contact lines as discussed in the corresponding paper in *Journal of Computational Physics* available under [http://dx.doi.org/10.1016/j.jcp.2015.04.041](http://dx.doi.org/10.1016/j.jcp.2015.04.041).
 
 **Comment:** Algorithm runs as well with GNU Octave (tested with version 3.8.2).
 
