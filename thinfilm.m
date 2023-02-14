@@ -2,8 +2,10 @@
 %           h_t + (h^2 h_xxx)_x = 0
 % with nonzero contact angles and kinematic condition. The solution h(t,x) 
 % is a function of space 'x' and time 't' and defined on a domain 
-% omega=(x(1),x(n)) which depends on time. Details can be found in the 
-% corresponding paper xxx in Journal of Computational Physics (submitted)
+% omega=(x(1),x(n)) which depends on time. 
+%
+% Corresponding article in *Journal of Computational Physics* available under 
+% http://dx.doi.org/10.1016/j.jcp.2015.04.041.
 %
 % written by Dirk Peschka
 % GNU GPL 2
