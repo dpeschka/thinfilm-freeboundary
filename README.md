@@ -14,10 +14,10 @@ F(q)=\int_{\{x:h>0\}} \frac{1}{2}(\partial_x h)^2 + (-S(x)) + g_2 h^2 - g_1 hx\,
 
 encoding surface energies, spreading coefficient, normal gravity, tangential gravity in the integrand, respectively. Different codes vary in the methodology that is used for the treatment of the contact angle. We have
 
-* `thinfilm.m`: MATLAB code for 1D thin film equation with contact lines (static contact angle) as discussed in the corresponding paper in *Journal of Computational Physics* available under [http://dx.doi.org/10.1016/j.jcp.2015.04.041](http://dx.doi.org/10.1016/j.jcp.2015.04.041). The corresponding code is explained in detail below and `thinfilm_clm.m` and `thinfilm_clm_dual.m` mainly follow this approach.
+* `thinfilm.m`: MATLAB code for 1D thin film equation with contact lines (static contact angle) as discussed in the corresponding paper in *Thin-film free boundary problems for partial wetting* published in *Journal of Computational Physics* available under [http://dx.doi.org/10.1016/j.jcp.2015.04.041](http://dx.doi.org/10.1016/j.jcp.2015.04.041). The corresponding code is explained in detail below and `thinfilm_clm.m` and `thinfilm_clm_dual.m` mainly follow this approach.
 <br>
 
-* `thinfilm_clm.m`: MATLAB code for the 1D thin film equation with contact lines (dynamic contact angle) as discussed in the corresponding paper in *Physics of Fluids* available under [https://doi.org/10.1063/1.5040985](https://doi.org/10.1063/1.5040985)
+* `thinfilm_clm.m`: MATLAB code for the 1D thin film equation with contact lines (dynamic contact angle) as discussed in the corresponding paper *Variational approach to dynamic contact angles for thin films* in *Physics of Fluids* available under [https://doi.org/10.1063/1.5040985](https://doi.org/10.1063/1.5040985)
 <br>
 
 * `thinfilm_clm_dual.m`: MATLAB code for the 1D thin film equation with dynamic contact lines, general mobility exponent in a dual variational formulation as used in the preprint 
